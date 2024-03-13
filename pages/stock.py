@@ -37,6 +37,7 @@ with st.sidebar:
         data = get_stock_data(name, startDate=start_date, endDate=end_date)
         st.session_state.pageIndex = 1
 
+    
 st.title(name.upper())
 
 tabs = st.tabs(['Table', 'Chart'])
@@ -64,7 +65,6 @@ with tabs[0]:
 with tabs[1]:
     if(len(data) > 0):
         df = pd.DataFrame(data)
-        bar = st.bar_chart(x='Ngay', y='GiaDongCua', data=df)
-        bar.lab
+        bar = st.bar_chart(x='Ngay', y='GiaDongCua', data=df)    
 
         st.line_chart(x='Ngay', y='GiaDongCua', data=df)
