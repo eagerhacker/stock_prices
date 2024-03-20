@@ -13,13 +13,14 @@ df2 = sns.load_dataset('healthexp')
 country_data = []
 health_expense = []
 
-cols = st.columns(2)
 country = st.selectbox('Country', df2.Country.unique())
 country_data = df2[df2['Country'] == country]
 #   health_expense = df2[df2['Country'] == country]
 with st.container(height=400):
-  st.expander('Country Data', expanded=True).table(country_data)
+  st.expander('Country Data', expanded=True).table(country_data[['Year', 'Spending_USD', 'Life_Expectancy']])
 
+st.title(country)
+cols = st.columns(2)
 with cols[0]:
   
   h =  df2.loc[df2.Country == country]
@@ -59,7 +60,8 @@ with st.container():
     
     fig, ax1 = plt.subplots(figsize=(5,3))
 
-    sns.barplot(x='Country', y='Expense', data=health_avg, ax=ax1)
+    a = sns.barplot(x='Country', y='Expense', data=health_avg, ax=ax1)
+    a.set_xticklabels(a.get_xticklabels(), rotation=40, ha="right",fontsize=10)
     ax2 = ax1.twinx()
     sns.lineplot(x='Country', y='Life_Expectancy', data=health_avg, ax=ax2, color='r')
     # sns.barplot(x=country_data
